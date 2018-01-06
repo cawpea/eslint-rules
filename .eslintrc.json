@@ -1,0 +1,14 @@
+{
+  "extends": [],
+  "plugins": [],
+  "parser": "babel-eslint",
+  "parserOptions": {},
+  "env": {
+    "es6": true,
+    "browser": true
+  },
+  "globals": {},
+  "rules": {
+    "no-constant-condition": "error"
+  }
+}
