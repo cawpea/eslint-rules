@@ -9,6 +9,6 @@
   },
   "globals": {},
   "rules":  {
-    "no-empty-character-class": "error"
+    "no-extra-semi": "error"
   }
 }

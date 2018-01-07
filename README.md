@@ -39,7 +39,7 @@ var hoge = {
   get name () {
     return 'hoge'
   }
-
+}
 ```
 
 ### [no-await-in-loop](https://eslint.org/docs/rules/no-await-in-loop)
@@ -216,4 +216,66 @@ var hoge = /abc[]/
 
 // OK
 var fuga = /abc[a-z]/
+```
+
+### [no-ex-assign](https://eslint.org/docs/rules/no-ex-assign)
+
+cache節の中で例外オブジェクトへの再代入を禁止します。
+例外オブジェクトへの代替アクセスは存在しないので、再代入は完全に破壊的です。
+
+```
+// NG
+try {
+
+} catch (e) {
+  e = new Error()
+}
+```
+
+### [no-extra-boolean-cast](https://eslint.org/docs/rules/no-extra-boolean-cast)
+
+不要なBoolean型への変換を禁止します。
+if文などの条件式では式の結果が強制的にBooleanになります。
+
+```
+var example = 10
+
+// NG
+if (Boolean(example)) {
+
+}
+if (!!example) {
+
+}
+
+// OK
+if (example) {
+
+}
+if (!example) {
+
+}
+```
+
+### [no-extra-parens](https://eslint.org/docs/rules/no-extra-parens)
+
+不要な括弧を禁止します。
+
+```
+// NG
+var total = (10 * 20) - 30
+```
+
+### [no-extra-semi](https://eslint.org/docs/rules/no-extra-semi)
+
+不要なセミコロンを禁止します。
+不要なセミコロンは技術的なエラーではないですが、コードを読む際に混乱を招きます。
+
+```
+// NG
+var example = 5;;
+
+function example () {
+  console.log('sample')
+};
 ```
