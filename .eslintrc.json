@@ -9,6 +9,6 @@
   },
   "globals": {},
   "rules":  {
-    "no-extra-semi": "error"
+    "no-irregular-whitespace": "error"
   }
 }
