@@ -335,3 +335,92 @@ function thing() {
     return `template <NBSP>string`;
 }
 ```
+
+### [no-obj-calls](https://eslint.org/docs/rules/no-obj-calls)
+
+グローバルオブジェクトを関数として呼び出す事を禁止します。
+EcmaScriptは大文字のグローバルオブジェクトを提供しますが、それらは関数で実行するとエラーになります。
+
+```js
+// NG
+Math()
+var json = JSON()
+var reflect = Reflect()
+```
+
+### [no-prototype-builtins](https://eslint.org/docs/rules/no-prototype-builtins)
+
+`Object.create`で生成したオブジェクトに対して、`Object.prototypes`のメソッドを直接呼ぶ事を禁止します。
+
+```js
+var parent = function () {
+  return this
+}
+parent.prototype.hoge = function () {
+  console.log('hoge')
+}
+
+var child = Object.create(parent)
+
+// NG
+var hasHoge = child.hasOwnProperty('hoge')
+
+// OK
+var hasHoge = Object.hasOwnProperty.call(child, 'hoge')
+```
+
+### [no-regex-spaces](https://eslint.org/docs/rules/no-regex-spaces)
+
+正規表現の中で複数のスペースを禁止します。
+正規表現はミスを無くすために出来るだけシンプルに保つべきです。
+
+```js
+// NG
+var regex = /Hell   World/
+var regex = new RegExp("Hello   World")
+
+// OK
+var regex = /Hell {3}World/
+var regex = new RegExp("Hello {3}World")
+```
+
+### [no-sparse-arrays](https://eslint.org/docs/rules/no-sparse-arrays)
+
+空の配列を作成するためにスパース配列を使用する事を禁止します。
+スパース配列は実装者の意図が分かりにくくし、混乱を招きます。
+
+```js
+// NG
+var array1 = [,,]
+var array2 = ['red',,'blue']
+
+// OK
+var array1 = new Array(3)
+var array2 = ['red', 'blue', ] // 最後のカンマはOK
+```
+
+### [no-template-curly-in-string](https://eslint.org/docs/rules/no-template-curly-in-string)
+
+通常文字列の中でテンプレート文字列のプレースホルダーの使用を禁止します。
+テンプレート文字列と間違って通常文字列を使用してしまう事を防止します。
+
+```js
+// NG
+var str1 = "Hello ${wld}"
+var str2 = 'Hello ${wld}'
+```
+
+### [no-unexpected-multiline](https://eslint.org/docs/rules/no-unexpected-multiline)
+
+紛らわしい複数行のコードを禁止します。
+改行文字はいくつかのルールを除いて自動セミコロン挿入により文を終了します。
+
+```js
+// NG
+var foo = bar
+(1 || 2).baz();
+
+// OK
+var foo = bar;
+(1 || 2).baz();
+```
