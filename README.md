@@ -424,3 +424,71 @@ var foo = bar
 var foo = bar;
 (1 || 2).baz();
 ```
+
+### [no-unreachable](https://eslint.org/docs/rules/no-unreachable)
+
+`return`, `throw`, `continue`, `break`ステートメントにおいて到達不能なコードを禁止します。
+
+```js
+// NG
+function hoge () {
+  return 'hoge'
+  console.log('hoge')
+}
+```
+
+### [no-unsafe-finally](https://eslint.org/docs/rules/no-unsafe-finally)
+
+`return`, `throw`, `continue`, `break`ステートメントを`fanally`ブロックに定義する事を禁止します。
+これは`try~catch`構文において予期しない動作を防止するためです。
+
+```js
+// NG
+try {
+  return 1
+} catch (e) {
+  return 2
+} finally {
+  return 3
+}
+```
+
+### [no-unsafe-negation](https://eslint.org/docs/rules/no-unsafe-negation)
+
+関係演算子の左オペランドにおいて否定する事を禁止します。
+これは開発者の意図と異なる動作をする可能性があるためです。
+
+```js
+// NG
+if (!hoge in obj) {
+  
+}
+if (!hoge instanceof Object) {
+
+}
+
+// OK
+if (!(hoge in obj)) {
+
+}
+if (!(hoge instanceof Object)) {
+  
+}
+```
+
+### [use-isnan](https://eslint.org/docs/rules/)
+
+`NaN`を判定する時には`isNaN()`を使用する事を求めます。
+これは`NaN`を比較した場合の結果が混乱を招くためです。
+
+```js
+// NG
+if (hoge === NaN) {
+
+}
+
+// OK
+if (isNaN(hoge)) {
+  
+}
+```

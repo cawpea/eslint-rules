@@ -9,6 +9,6 @@
   },
   "globals": {},
   "rules":  {
-    "no-unexpected-multiline": "error"
+    "use-isnan": "error"
   }
 }
