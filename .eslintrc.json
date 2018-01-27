@@ -9,6 +9,6 @@
   },
   "globals": {},
   "rules":  {
-    "use-isnan": "error"
+    "valid-typeof": "error"
   }
 }

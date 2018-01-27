@@ -492,3 +492,52 @@ if (isNaN(hoge)) {
   
 }
 ```
+
+### [valid-jsdoc](https://eslint.org/docs/rules/valid-jsdoc)
+
+JSDocのコメントを記述する事を強制します。
+
+```
+// NG
+/**
+ * Add two numbers.
+ * @param {number} num The first number.
+ * @returns The sum of the two numbers.
+ */
+function add(num1, num2) {
+  return num1 + num2;
+}
+
+// OK
+/**
+ * Add two numbers.
+ * @param {number} num1 The first number.
+ * @param {number} num2 The second number.
+ * @returns {number} The sum of the two numbers.
+ */
+function add(num1, num2) {
+  return num1 + num2;
+}
+```
+
+### [valid-typeof](https://eslint.org/docs/rules/valid-typeof)
+
+`typeof`で比較する時の文字列が有効である事を強制します。
+
+```
+// NG
+if (typeof hoge === 'undefiend') {
+
+}
+if (typeof hoge === 'stirng') {
+
+}
+
+// OK
+if (typeof hoge === 'undefined') {
+
+}
+if (typeof hoge === 'object') {
+
+}
+```
