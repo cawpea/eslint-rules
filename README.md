@@ -497,7 +497,7 @@ if (isNaN(hoge)) {
 
 JSDocのコメントを記述する事を強制します。
 
-```
+```js
 // NG
 /**
  * Add two numbers.
@@ -524,7 +524,7 @@ function add(num1, num2) {
 
 `typeof`で比較する時の文字列が有効である事を強制します。
 
-```
+```js
 // NG
 if (typeof hoge === 'undefiend') {
 
