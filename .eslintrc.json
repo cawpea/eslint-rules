@@ -9,6 +9,6 @@
   },
   "globals": {},
   "rules":  {
-    "valid-typeof": "error"
+    "complexity": ["error", 2]
   }
 }

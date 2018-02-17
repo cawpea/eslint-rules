@@ -541,3 +541,120 @@ if (typeof hoge === 'object') {
 
 }
 ```
+
+## Best Practices
+
+### [accessor-pairs](https://eslint.org/docs/rules/accessor-pairs)
+
+set構文のペアとなるget構文の定義を強制します。
+
+```js
+// NG
+var object = {
+  set foo (val) {
+    this.val = val
+  }
+}
+
+// OK
+var object = {
+  set foo (val) {
+    this.val = val
+  },
+  get foo () {
+    return this.val
+  }
+}
+```
+
+### [array-callback-return](https://eslint.org/docs/rules/array-callback-return)
+
+Arrayメソッドのコールバック関数で`return`の記述を強制します。
+
+```js
+// NG
+let numList = [1, 2, 3].map((item) => {
+  item * item
+})
+
+// OK
+let numList = [1, 2, 3].map((item) => {
+  return item * item
+})
+```
+
+### [block-scoped-var](https://eslint.org/docs/rules/block-scoped-var)
+
+`var`変数をブロック外で使用した時に警告します。
+これはホイスティングによるバグを避けるためです。
+
+```js
+// NG
+function something () {
+  if (true) {
+    var foo = 'hello'
+  }
+  console.log(foo)
+}
+
+// OK
+function something () {
+  var foo
+  if (true) {
+    foo = 'hello'
+  }
+  console.log(foo)
+}
+```
+
+### [class-methods-use-this](https://eslint.org/docs/rules/class-methods-use-this)
+
+classメソッドが`this`を利用する事を強制します。
+`this`を利用しない場合は、静的関数(static)として定義する事ができます。
+
+```js
+// NG
+class Something {
+  constructor () {
+    this.num = 1
+  }
+  print () {
+    console.log(1)
+  }
+}
+
+// OK
+class Something {
+  constructor () {
+    this.num = 1
+  }
+  static print () {
+    console.log(1)
+  }
+}
+class Something {
+  constructor () {
+    this.num = 1
+  }
+  print () {
+    console.log(this.num)
+  }
+}
+```
+
+### [complexity](https://eslint.org/docs/rules/complexity)
+
+複雑度に制限を設けます。
+
+```js
+// NG: eslint complexity: ["error", 2]
+function something (i) {
+  if (i === 1) {
+    console.log('foo') // 1
+  } else if (i === 2) {
+    console.log('bar') // 2
+  } else {
+    console.log('baz') // 3
+  }
+}
+```
