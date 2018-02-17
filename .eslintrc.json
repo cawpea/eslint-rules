@@ -9,6 +9,6 @@
   },
   "globals": {},
   "rules":  {
-    "complexity": ["error", 2]
+    "consistent-return": "error"
   }
 }

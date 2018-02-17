@@ -569,7 +569,7 @@ var object = {
 
 ### [array-callback-return](https://eslint.org/docs/rules/array-callback-return)
 
-Arrayメソッドのコールバック関数で`return`の記述を強制します。
+Arrayメソッドのコールバック関数で`return`ステートメントの記述を強制します。
 
 ```js
 // NG
@@ -655,6 +655,35 @@ function something (i) {
     console.log('bar') // 2
   } else {
     console.log('baz') // 3
+  }
+}
+```
+
+### [consistent-return](https://eslint.org/docs/rules/consistent-return)
+
+`return`ステートメントが常に何かを返すか、常に何も返さない事を強制します。
+
+```js
+// NG
+function something1 (i) {
+  if (i === 1) {
+    return 'foo'
+  } else {
+    return
+  }
+}
+
+// OK
+function something2 (i) {
+  if (i === i) {
+    return 'foo'
+  } else {
+    return 'bar'
+  }
+}
+function something3 (i) {
+  if (i === i) {
+    return
   }
 }
 ```
