@@ -687,3 +687,147 @@ function something3 (i) {
   }
 }
 ```
+
+### [curly](https://eslint.org/docs/rules/curly)
+
+中括弧を使用する事を求めます。
+JavaScriptではブロック内にステートメントが１つしか存在しない場合は中括弧を省略する事ができますが、これはバグの原因になったり、コードの明瞭性が低くなるため、中括弧を省略しない事がベストプラクティスと見なされています。
+
+```js
+// NG
+if (foo) return 'foo'
+
+// OK
+if (foo) {
+  return 'foo'
+}
+```
+
+### [default-case](https://eslint.org/docs/rules/default-case)
+
+switch文において`default`Caseを明示する事を要求します。
+`default`Caseを常に明示する事は開発者の意図を明確にするために良い事だと考えられています。
+
+```js
+// NG
+switch (foo) {
+  case 1:
+    console.log('foo is 1')
+    break
+  case 2:
+    console.log('foo is 2')
+    break
+}
+
+// OK
+switch (foo) {
+  case 1:
+    console.log('foo is 1')
+    break
+  case 2:
+    console.log('foo is 2')
+    break
+  default:
+    break
+}
+
+switch (foo) {
+  case 1:
+    console.log('foo is 1')
+    break
+  case 2:
+    console.log('foo is 2')
+    break
+  // no default
+}
+```
+
+### [dot-location](https://eslint.org/docs/rules/dot-location)
+
+ドット(.)の前後に改行を入れる事を要求します。
+ドットの位置に一貫性がある事で読みやすさが向上します。
+
+```js
+/* eslint dot-location: ["error", "object"] */
+// NG
+let property = object
+  .property
+
+// OK
+let property = object.
+  property
+let property = object.property
+
+/* eslint dot-location: ["error", "property"] */
+// NG
+let property = object.
+  property
+
+// OK
+let property = object
+  .property
+let property = object.property
+```
+
+### [dot-notation](https://eslint.org/docs/rules/dot-notation)
+
+オブジェクトのプロパティにアクセスする際にはドット表記法を要求します。
+JavaScriptではブラケット表記法でもオブジェクトのプロパティにアクセスできますが、ドット表記法の方が読みやすさや圧縮効率に優れています。
+
+```js
+// NG
+let foo = object['property']
+
+// OK
+let foo = object.property
+
+let propertyName = 'property'
+let foo = object[propertyName]
+```
+
+### [eqeqeq](https://eslint.org/docs/rules/eqeqeq)
+
+`==`と`!=`の代わりに`===`と`!==`を要求します。
+`==`と`!=`は曖昧で問題を見つけるのが難しいため、`===`と`!==`の方が型安全で良い習慣です。
+
+```js
+// NG
+if (foo == 'foo') {
+
+}
+
+// OK
+if (foo === 'foo') {
+  
+}
+```
+### [guard-for-in](https://eslint.org/docs/rules/guard-for-in)
+
+`for in`文を利用する時に`if`文で精査する事を要求します。
+`for in`はプロトタイプチェーンで継承されたプロパティもループに含めるため、意図しないプロパティを読み込んでしまう恐れがあるためです。
+
+```js
+// NG
+for (const key in object) {
+  console.log(key)
+}
+
+// OK
+for (const key in object) {
+  if (object.hasOwnProperty(key)) {
+    console.log(key)
+  }
+}
+```
+
+### [no-alert](https://eslint.org/docs/rules/no-alert)
+
+`alert`関数を利用する事を禁止します。
+`alert`や`confirm`、`prompt`関数で表示されるUIは、より適切なカスタムUIに置き換えられるべきです。また、デバッグに利用される事もあるため、productionでビルドする際には削除すべきです。
+
+```js
+// NG
+alert('foo')
+confirm('bar')
+prompt('baz')
+```

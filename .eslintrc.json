@@ -9,6 +9,6 @@
   },
   "globals": {},
   "rules":  {
-    "consistent-return": "error"
+    "no-alert": "error"
   }
 }
