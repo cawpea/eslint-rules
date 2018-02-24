@@ -822,7 +822,7 @@ for (const key in object) {
 
 ### [no-alert](https://eslint.org/docs/rules/no-alert)
 
-`alert`関数を利用する事を禁止します。
+`alert`関数を使用する事を禁止します。
 `alert`や`confirm`、`prompt`関数で表示されるUIは、より適切なカスタムUIに置き換えられるべきです。また、デバッグに利用される事もあるため、productionでビルドする際には削除すべきです。
 
 ```js
@@ -830,4 +830,64 @@ for (const key in object) {
 alert('foo')
 confirm('bar')
 prompt('baz')
+```
+
+### [no-caller](https://eslint.org/docs/rules/no-caller)
+
+`arguments.caller`と`arguments.callee`を使用する事を禁止します。
+これらの関数は将来的にJavaScriptやECMAScript5のstrict modeで禁止されています。
+
+```js
+// NG
+function foo () {
+  console.log(arguments.caller)
+  arguments.callee()
+}
+```
+
+### [no-case-declarations](https://eslint.org/docs/rules/no-case-declarations)
+
+lexical declarations（`let`, `const`, `function`, `class`）を`case`や`default`節内で使用する事を禁止します。
+これら`switch`文全体で定義されているようにも見えますが、実際にはそのコードに到達した時のみしか初期化されないためです。
+
+lexical declarationsを`case`で利用する場合は中括弧で囲みます。
+
+```js
+// NG
+switch (something) {
+  case 1:
+    let foo = 'foo'
+    break
+  case 2:
+    const bar = 'bar'
+    break
+  case 3:
+    function baz () {
+      console.log('baz')
+    }
+    break
+  default:
+    class qux {
+    }
+}
+
+// OK
+switch (something) {
+  case 1: {
+    let foo = 'foo'
+  }
+  case 2: {
+    const bar = 'bar'
+  }
+  case 3: {
+    function baz () {
+      console.log('baz')
+    }
+  }
+  default: {
+    class qux {
+      
+    }
+  }
+}
 ```
