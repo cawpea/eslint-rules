@@ -891,3 +891,56 @@ switch (something) {
   }
 }
 ```
+
+### [no-div-regex](https://eslint.org/docs/rules/no-div-regex)
+
+正規表現の先頭での除算演算子を許可しません
+
+```js
+// NG
+let foo = /=foo/
+
+// OK
+let foo = /\=foo/
+```
+
+### [no-else-return](https://eslint.org/docs/rules/no-else-return)
+
+`else`の前に`return`する事を禁止します。
+これは`return`文をブロックの外に出す事が出来るためです。
+
+```js
+// NG
+function something () {
+  if (foo) {
+    return 'foo'
+  } else {
+    return 'bar' 
+  }
+}
+
+// OK
+function something () {
+  if (foo) {
+    return 'foo'
+  }
+  return 'bar'
+}
+```
+
+### [no-empty-function](https://eslint.org/docs/rules/no-empty-function)
+
+空の関数を禁止します。意図的に定義する場合はコメントを記述します。
+
+```js
+// NG
+function empty () {
+
+}
+
+// OK
+function empty () {
+  // do nothing.
+}
+```
+

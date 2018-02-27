@@ -9,6 +9,6 @@
   },
   "globals": {},
   "rules":  {
-    "no-case-declarations": "error"
+    "no-empty-function": "error"
   }
 }
