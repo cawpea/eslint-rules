@@ -944,3 +944,141 @@ function empty () {
 }
 ```
 
+### [no-empty-pattern](https://eslint.org/docs/rules/no-empty-pattern)
+
+空のデストラクチャパターンを禁止します。
+多くの場合はデフォルト値を指定する際の記述ミスです。
+
+```js
+// NG
+let {property: {}} = object
+
+// OK
+let {property = {}} = object
+```
+
+### [no-eq-null](https://eslint.org/docs/rules/no-eq-null)
+
+`null`を比較する時には厳密比較を要求します。
+これは意図しない比較による潜在的なバグを防ぐためです。
+
+```js
+// NG
+if (foo == null) {
+
+}
+if (foo != null)
+
+// OK
+if (foo === null) {
+
+}
+if (foo !== null) {
+
+}
+```
+
+### [no-eval](https://eslint.org/docs/rules/no-eval)
+
+`eval`関数の使用を禁止します。
+`eval`関数は危険であり、悪用される可能性があるためです。
+
+```js
+// NG
+var foo  = eval('{a: 1, b: 2}')
+```
+
+### [no-extend-native](https://eslint.org/docs/rules/no-extend-native)
+
+ビルトインオブジェクトを拡張する事を禁止します。
+
+```js
+// NG
+Object.prototype.foo = 'foo'
+```
+
+### [no-extra-bind](https://eslint.org/docs/rules/no-extra-bind)
+
+不要な`bind`関数を禁止します。
+
+```js
+// NG
+let foo = function () {
+  console.log('bar')
+}.bind(this)
+
+let foo = function () {
+  (function () {
+    console.log(this.bar)
+  })
+}.bind({bar: 'bar'})
+
+// OK
+let foo = function () {
+  console.log(this.bar)
+}.bind({bar: 'bar'})
+```
+
+### [no-extra-label](https://eslint.org/docs/rules/no-extra-label)
+
+不要なラベルを禁止します。
+
+```js
+// NG
+LOOP1: while(true) {
+  break LOOP1
+}
+
+// OK
+LOOP1: while(true) {
+  while (true) {
+    break LOOP1
+  }
+}
+```
+
+### [no-fallthrough](https://eslint.org/docs/rules/no-fallthrough)
+
+`case`ステートメントでのフォールスルーを禁止します。
+意図的にフォールスルーを使う場合はコメントを記述します。
+
+```js
+// NG
+switch (foo) {
+  case 1:
+    doSomething1()
+  case 2:
+    doSomething2()
+}
+
+// OK
+switch (foo) {
+  case 1:
+    doSomething1()
+    break
+  case 2:
+    doSomething2()
+    break
+}
+
+switch (foo) {
+  case 1:
+    doSomething1()
+    // fall through
+  case 2:
+    doSomething2()
+}
+```
+
+### [no-floating-decimal](https://eslint.org/docs/rules/no-floating-decimal)
+
+小数点の前の数字を省略する事を禁止します。
+これは数字とdot表記を区別しやすくするためです。
+
+```js
+// NG
+let decimal = .1
+
+// OK
+let decimal = 0.1
+```

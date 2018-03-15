@@ -9,6 +9,6 @@
   },
   "globals": {},
   "rules":  {
-    "no-empty-function": "error"
+    "no-floating-decimal": "error"
   }
 }

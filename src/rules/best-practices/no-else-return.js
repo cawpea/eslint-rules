@@ -14,15 +14,3 @@ function something () {
   }
   return 'bar'
 }
-
-function something () {
-  let result
-  if (foo) {
-    return 'foo'
-  } else if (!foo) {
-    result = 'bar'
-  } else {
-    return 'baz'
-  }
-  return result
-}
