@@ -1082,3 +1082,90 @@ let decimal = .1
 // OK
 let decimal = 0.1
 ```
+
+### [no-global-assign](https://eslint.org/docs/rules/no-global-assign)
+
+読み取り専用のグローバル変数への代入を禁止します。
+
+```js
+// NG
+window = false
+Object = {}
+undefined = 'undefined'
+```
+
+### [no-implicit-coercion](https://eslint.org/docs/rules/no-implicit-coercion)
+
+短記法による暗黙的な型変換を禁止します。型変換をする場合は明示的な方法を使います。
+
+```js
+// NG
+let isFoo = !!foo
+
+if (~foo.indexOf(0)) {
+
+}
+
+// OK
+let isFoo = Boolean(foo)
+
+if (foo.indexOf(0) !== -1) {
+
+}
+```
+
+### [no-implicit-globals](https://eslint.org/docs/rules/no-implicit-globals)
+
+グローバルスコープで変数と関数を宣言する事を禁止します。
+意図的にグローバルに宣言する場合は`window`や`self`を明示します。
+
+```js
+// NG
+function foo () {}
+var foo = 'foo'
+
+// OK
+window.foo = function () {}
+self.foo = 'foo'
+```
+
+### [no-implied-eval](https://eslint.org/docs/rules/no-implied-eval)
+
+暗黙的な`eval()`を禁止します。
+`setTimeout()`、`setInterval()`、`execScript()`の第一引数に文字列を指定した場合に暗黙的に`eval()`が実行されてしまいます。（Internet Explorer only）
+
+```js
+// NG
+setTimeout(`function () {
+  console.log("foo") 
+}`, 1000)
+```
+
+### [no-invalid-this](https://eslint.org/docs/rules/no-invalid-this)
+
+`this`キーワードをクラスやクラスのようなオブジェクトの外側で使用する事を禁止します。
+`strict mode`の場合、上記のケースで`this`は`undefined`になり、`TypeError`を発生させる可能性があります。
+
+```js
+// NG
+this.foo = 'foo'
+
+function func () {
+  this.foo = 'foo'
+}
+
+let foo = () => {
+  this.foo = 'foo'
+}
+
+// OK
+function Func () {
+  this.foo = 'foo'
+}
+
+class Foo {
+  constructor () {
+    this.foo = 'foo'
+  }
+}
+```

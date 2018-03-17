@@ -9,6 +9,6 @@
   },
   "globals": {},
   "rules":  {
-    "no-floating-decimal": "error"
+    "no-invalid-this": "error"
   }
 }
