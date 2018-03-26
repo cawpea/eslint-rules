@@ -9,6 +9,6 @@
   },
   "globals": {},
   "rules":  {
-    "no-invalid-this": "error"
+    "no-magic-numbers": "error"
   }
 }

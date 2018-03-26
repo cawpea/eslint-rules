@@ -1169,3 +1169,104 @@ class Foo {
   }
 }
 ```
+
+### [no-iterator](https://eslint.org/docs/rules/no-iterator)
+
+非推奨の`__iterator__`プロパティを禁止します。
+ES6のIteratorとGeneratorを代わりに使用します。
+
+```js
+// NG
+Foo.prototype.__iterator__ = function () {}
+```
+
+### [no-labels](https://eslint.org/docs/rules/no-labels)
+
+`label`ステートメントを禁止します。
+`label`はあまり使われない傾向がありますが、制御フローを理解しにくく、エラーが発生しやすいためです。
+
+```js
+// NG
+label:
+  while(foo) {
+    while (bar) {
+      break label
+    }
+  }
+
+// OK
+while(foo) {
+  while (bar) {
+    break
+  }
+  break
+}
+```
+
+### [no-lone-blocks](https://eslint.org/docs/rules/no-lone-blocks)
+
+不要にネストされたブロックを禁止します。
+
+```js
+// NG
+{
+  var foo = 'foo'
+}
+
+// OK
+{
+  let foo = 'foo'
+}
+```
+
+### [no-loop-func](https://eslint.org/docs/rules/no-loop-func)
+
+ループの中で関数宣言、関数式の利用を禁止します。
+これは状況によって予期しない動作をする可能性があるためです。
+
+```js
+// NG
+var funcs = []
+for (var i = 0; i < 10; i++) {
+  funcs[i] = function () {
+    return i
+  }
+}
+
+for (var i = 0; i < 10; i++) {
+  function foo () {
+    console.log(i)
+  }
+  foo()
+}
+
+// OK
+var funcs = []
+for (let i = 0; i < 10; i++) {
+  funcs[i] = function () {
+    return i
+  }
+}
+for (let i = 0; i < 10; i++) {
+  function foo () {
+    console.log(i)
+  }
+  foo()
+}
+```
+
+### [no-magic-numbers](https://eslint.org/docs/rules/no-magic-numbers)
+
+マジックナンバーを禁止します。
+マジックナンバーは名前付き定数で宣言する事によって読みやすく、リファクタリングもしやすくなります。
+
+```js
+// NG
+let array = ['foo', 'bar', 'baz']
+console.log(array[2])
+
+// OK
+let array = ['foo', 'bar', 'baz']
+let index = 2
+console.log(array[index])
+```
