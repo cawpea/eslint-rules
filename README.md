@@ -1270,3 +1270,49 @@ let array = ['foo', 'bar', 'baz']
 let index = 2
 console.log(array[index])
 ```
+
+### [no-multi-spaces](https://eslint.org/docs/rules/no-multi-spaces)
+
+条件式、宣言、配列、オブジェクト、シーケンス、関数パラメーターの周りで複数の空白を指定する事を禁止します。
+
+```js
+// NG
+if (foo  === 'foo') {
+
+}
+function foo  () {
+
+}
+const foo = [1,  2, 3]
+```
+
+### [no-multi-str](https://eslint.org/docs/rules/no-multi-str)
+
+複数行の文字列を禁止します。
+`\`を改行の前に指定する事で複数行の文字列を作る事ができますが、これは元々JavaScriptに公式に規定されたものではなかったため、悪い習慣だと考える人がいるためです。
+
+```js
+// NG
+let foo = 'foo \
+  bar \
+  baz'
+
+// OK
+let foo = 'foo \n' +
+  'bar \n' +
+  'baz'
+```
+
+### [no-new](https://eslint.org/docs/rules/no-new)
+
+変数に代入しないインスタンスの生成（`new`）を禁止します。
+変数に代入しない場合の多くはコンストラクタを必要とせず、関数に置き換える事ができます。
+
+```js
+// NG
+new Foo()
+
+// OK
+let foo = new Foo()
+foo()
+```
