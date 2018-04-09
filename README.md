@@ -1316,3 +1316,91 @@ new Foo()
 let foo = new Foo()
 foo()
 ```
+
+### [no-new-func](https://eslint.org/docs/rules/no-new-func)
+
+`Function`コンストラクタの使用を禁止します。
+`Function`は可読性が低く、デバッグが困難なために悪い習慣だと考えられています。
+
+```js
+// NG
+let func = new Function('a', 'b', 'return a + b')
+```
+
+### [no-new-wrappers](https://eslint.org/docs/rules/no-new-wrappers)
+
+`new String`, `new Number`, `new Boolean`の使用を禁止します。
+これらはプリミティブな値を生成せず、実際にはObjectが生成されるため、開発者の混乱を招く可能性があるためです。
+
+```js
+// NG
+let str = new String('str')
+let num = new Number(1)
+let bool = new Boolean(false)
+```
+
+### [no-octal](https://eslint.org/docs/rules/no-octal)
+
+8進数の表記を禁止します。8進数の表記はEcmaScript5で廃止され、strictモードではエラーになります。
+
+```js
+// NG
+let foo = 071
+```
+
+### [no-octal-escape](https://eslint.org/docs/rules/no-octal-escape)
+
+8進数のエスケープシーケンスの使用を禁止します。
+
+```js
+// NG
+let foo = "Copyright \251";
+
+// OK
+let foo = "Copyright \u00A9"; 
+```
+
+### [no-param-reassign](https://eslint.org/docs/rules/no-param-reassign)
+
+関数パラメーター（引数）への再代入を禁止します。
+これは開発者が意図しないエラーが発生する事を防止するためです。
+
+```js
+// NG
+function doSomething(arg) {
+  arg = 'foo'
+}
+
+// OK
+function doSomething(arg) {
+  let foo = arg
+  foo = 'foo'
+}
+```
+
+### [no-proto](https://eslint.org/docs/rules/no-proto)
+
+`__proto__`を使用する事を禁止します。
+`__proto__`はEcmaScript 3.1以降廃止されたので、代わりに`getPrototypeOf`を使用してください。
+
+```js
+// NG
+let proto = obj.__proto__
+
+// OK
+let proto = Object.getPrototypeOf(obj)
+```
+
+### [no-redeclare](https://eslint.org/docs/rules/no-redeclare)
+
+同じスコープ内で同名の変数を宣言する事を禁止します。
+
+```js
+// NG
+var foo = 'foo1'
+var foo = 'foo2'
+
+// OK
+var bar = 'bar1'
+bar = 'bar2'
+```

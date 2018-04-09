@@ -9,6 +9,6 @@
   },
   "globals": {},
   "rules":  {
-    "no-new": "error"
+    "no-redeclare": "error"
   }
 }
