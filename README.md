@@ -1404,3 +1404,94 @@ var foo = 'foo2'
 var bar = 'bar1'
 bar = 'bar2'
 ```
+
+### [no-restricted-properties](https://eslint.org/docs/rules/no-restricted-properties)
+
+指定されたオブジェクトプロパティの使用を禁止する事ができます。
+
+```js
+/*
+"no-restricted-properties": [2, {
+  "object": "obj",
+  "property": "prop"
+}]
+*/
+
+// NG
+let obj = {}
+console.log(obj.prop)
+```
+
+### [no-return-assign](https://eslint.org/docs/rules/no-return-assign)
+
+`return`文で代入を行う事を禁止します。
+これは開発者の混乱を招き、エラーを発生させる恐れがあるためです。
+
+```js
+// NG
+function doSomething() {
+  return a = 1 + 2
+}
+```
+
+### [no-return-await](https://eslint.org/docs/rules/no-return-await)
+
+`return await`文を禁止します。
+これは`async function`を理解しておらず実際には役に立たない処理になるためです。
+
+```js
+// NG
+async function doSomething() {
+  return await foo()
+}
+
+// OK
+async function doSomething() {
+  await foo()
+  return
+}
+```
+
+### [no-script-url](https://eslint.org/docs/rules/no-script-url)
+
+JavaScript擬似プロトコル`javascript:`を禁止します。
+
+```js
+// NG
+location.href = 'javascript:void(0)'
+```
+
+### [no-self-assign](https://eslint.org/docs/rules/no-self-assign)
+
+自身への割り当てを禁止します。
+
+```js
+// NG
+window = window
+```
+
+### [no-self-compare](https://eslint.org/docs/rules/no-self-compare)
+
+自身との比較を禁止します。
+
+```js
+// NG
+if (foo === foo) {
+  
+}
+```
+
+### [no-sequences](https://eslint.org/docs/rules/no-sequences)
+
+以下の例外を除いて、カンマ演算子の使用を禁止します。
+
+- for文の初期化もしくは更新部分
+- 式の順序が明示的かつ括弧で囲まれている場合
+
+```js
+// NG
+foo = doSomething(), val
+
+// OK
+foo = (doSomething(), val)
+```
