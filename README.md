@@ -136,7 +136,7 @@ var pattern2 = new RegExp("Hello¥sWorld"
 
 ### [no-debugger](https://eslint.org/docs/rules/no-debugger)
 
-`debugger`ステートメントを使用する事を禁止します。
+`debugger`文を使用する事を禁止します。
 `debugger`はデバッグのために使用するため、本番環境のコードに含むべきではありません。
 
 ```js
@@ -427,7 +427,7 @@ var foo = bar;
 
 ### [no-unreachable](https://eslint.org/docs/rules/no-unreachable)
 
-`return`, `throw`, `continue`, `break`ステートメントにおいて到達不能なコードを禁止します。
+`return`, `throw`, `continue`, `break`文において到達不能なコードを禁止します。
 
 ```js
 // NG
@@ -439,7 +439,7 @@ function hoge () {
 
 ### [no-unsafe-finally](https://eslint.org/docs/rules/no-unsafe-finally)
 
-`return`, `throw`, `continue`, `break`ステートメントを`fanally`ブロックに定義する事を禁止します。
+`return`, `throw`, `continue`, `break`文を`fanally`ブロックに定義する事を禁止します。
 これは`try~catch`構文において予期しない動作を防止するためです。
 
 ```js
@@ -569,7 +569,7 @@ var object = {
 
 ### [array-callback-return](https://eslint.org/docs/rules/array-callback-return)
 
-Arrayメソッドのコールバック関数で`return`ステートメントの記述を強制します。
+Arrayメソッドのコールバック関数で`return`文の記述を強制します。
 
 ```js
 // NG
@@ -661,7 +661,7 @@ function something (i) {
 
 ### [consistent-return](https://eslint.org/docs/rules/consistent-return)
 
-`return`ステートメントが常に何かを返すか、常に何も返さない事を強制します。
+`return`文が常に何かを返すか、常に何も返さない事を強制します。
 
 ```js
 // NG
@@ -691,7 +691,7 @@ function something3 (i) {
 ### [curly](https://eslint.org/docs/rules/curly)
 
 中括弧を使用する事を求めます。
-JavaScriptではブロック内にステートメントが１つしか存在しない場合は中括弧を省略する事ができますが、これはバグの原因になったり、コードの明瞭性が低くなるため、中括弧を省略しない事がベストプラクティスと見なされています。
+JavaScriptではブロック内に文が１つしか存在しない場合は中括弧を省略する事ができますが、これはバグの原因になったり、コードの明瞭性が低くなるため、中括弧を省略しない事がベストプラクティスと見なされています。
 
 ```js
 // NG
@@ -1039,7 +1039,7 @@ LOOP1: while(true) {
 
 ### [no-fallthrough](https://eslint.org/docs/rules/no-fallthrough)
 
-`case`ステートメントでのフォールスルーを禁止します。
+`case`文でのフォールスルーを禁止します。
 意図的にフォールスルーを使う場合はコメントを記述します。
 
 ```js
@@ -1182,7 +1182,7 @@ Foo.prototype.__iterator__ = function () {}
 
 ### [no-labels](https://eslint.org/docs/rules/no-labels)
 
-`label`ステートメントを禁止します。
+`label`文を禁止します。
 `label`はあまり使われない傾向がありますが、制御フローを理解しにくく、エラーが発生しやすいためです。
 
 ```js
@@ -1494,4 +1494,135 @@ foo = doSomething(), val
 
 // OK
 foo = (doSomething(), val)
+```
+
+### [no-throw-literal](https://eslint.org/docs/rules/no-throw-literal)
+
+例外発生時に`Error`オブジェクトをthrowする事を求めます。
+これは例外処理に一貫性を持たせるためです。
+
+```js
+// NG
+throw 1
+throw { error: true }
+
+// OK
+throw new Error()
+throw new Error('error')
+```
+
+### [no-unmodified-loop-condition](https://eslint.org/docs/rules/no-unmodified-loop-condition)
+
+ループの条件が変更されない事を禁止します。
+これは開発者の間違いの可能性があるためです。
+
+```js
+// NG
+while (node) {
+  doSomething(node);
+}
+
+// OK
+while (node) {
+  doSomething(node);
+  node = node.parent;
+}
+```
+
+### [no-unused-expressions](https://eslint.org/docs/rules/no-unused-expressions)
+
+使用されない式を禁止します。
+
+```js
+// NG
+function doSomething() {
+  foo + 1
+}
+
+// OK
+function doSomething() {
+  return foo + 1
+}
+```
+
+### [no-unused-labels](https://eslint.org/docs/rules/no-unused-labels)
+
+未使用のラベル禁止します。
+
+```js
+// NG
+A: var foo = 0;
+
+// OK
+A: {
+  if (foo()) {
+      break A;
+  }
+  bar();
+}
+```
+
+### [no-useless-call](https://eslint.org/docs/rules/no-useless-call)
+
+不要な`.call()`と`.apply()`を禁止します。
+これらは関数呼び出しに使えますが、通常の関数呼び出しより遅くなります。
+
+```js
+// NG
+foo.call(undefined, 1, 2, 3);
+foo.call(null, 1, 2, 3);
+obj.foo.call(obj, 1, 2, 3);
+
+// OK
+foo.call(obj, 1, 2, 3);
+obj.foo.call(null, 1, 2, 3);
+obj.foo.call(otherObj, 1, 2, 3);
+```
+
+### [no-useless-concat](https://eslint.org/docs/rules/no-useless-concat)
+
+不要な文字の連結を禁止します。
+
+```js
+// NG
+var a = `some` + `string`;
+var a = '1' + '0';
+
+// OK
+var c = a + b;
+var c = '1' + a;
+var a = 1 + '1';
+```
+
+### [no-useless-escape](https://eslint.org/docs/rules/no-useless-escape)
+
+不要なエスケープを禁止します。
+
+```js
+// NG
+"\'";
+`\"${foo}\"`;
+`\#{foo}`;
+
+// OK
+"\"";
+`\${${foo}}`;
+`$\{${foo}}`;
+```
+
+### [no-useless-return](https://eslint.org/docs/rules/no-useless-return)
+
+不要な`return`文を禁止します。
+
+```js
+// NG
+function foo() {
+  doSomething();
+  return;
+}
+
+// OK
+function foo() {
+  return doSomething();
+}
 ```

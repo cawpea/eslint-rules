@@ -9,6 +9,6 @@
   },
   "globals": {},
   "rules":  {
-    "no-sequences": "error"
+    "no-useless-escape": "error"
   }
 }
