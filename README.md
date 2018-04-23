@@ -1626,3 +1626,180 @@ function foo() {
   return doSomething();
 }
 ```
+
+### [no-void](https://eslint.org/docs/rules/no-void)
+
+`void`演算子を禁止します。
+いくつかのコーディングスタイルでは、`void`演算子は読みにくいものとされています。
+
+```js
+// NG
+void foo
+var foo = void bar();
+```
+
+### [no-warning-comments](https://eslint.org/docs/rules/no-warning-comments)
+
+警告コメントを禁止します。
+警告コメントは多くの場合、本番環境に適用する前に削除されるべきです。
+
+```js
+// NG
+function callback(err, results) {
+  if (err) {
+    console.error(err);
+    return;
+  }
+  // TODO
+}
+
+// OK
+function callback(err, results) {
+  if (err) {
+    console.error(err);
+    return;
+  }
+  // NOT READY FOR PRIME TIME
+  // but too bad, it is not a predefined warning term
+}
+```
+
+### [no-with](https://eslint.org/docs/rules/no-with)
+
+`with`文の使用を禁止します。
+`with`文の利用は非推奨であり、EcmaScript5の`strict`モードでは禁止されています。
+
+```js
+// NG
+with (point) {
+  r = Math.sqrt(x * x + y * y);
+}
+
+// OK
+const r = ({x, y}) => Math.sqrt(x * x + y * y);
+```
+
+### [prefer-promise-reject-errors](https://eslint.org/docs/rules/prefer-promise-reject-errors)
+
+Promiseでrejectする場合は、`Error`オブジェクトを設定する事を求めます。
+
+```js
+// NG
+Promise.reject("something bad happened");
+Promise.reject();
+
+// OK
+Promise.reject(new Error("something bad happened"));
+Promise.reject(new TypeError("something bad happened"));
+```
+
+### [radix](https://eslint.org/docs/rules/radix)
+
+`parseInt`関数を使用する場合は、基数（radix）の指定を求めます。
+これは、EcmaScript5以前まで`0`で始まる数字の文字列を8進数として解釈してしまう事があり、開発者の意図しない動作を防ぐためです。
+
+```js
+// NG
+var num = parseInt("071");
+var num = parseInt(someValue);
+
+// OK
+var num = parseInt("071", 10);
+var num = parseInt("071", 8);
+```
+
+### [require-await](https://eslint.org/docs/rules/require-await)
+
+`await`を持たない`async`関数を禁止します。
+これはリファクタリングなどで意図しない結果になる事を防ぎます。
+
+```js
+// NG
+async function foo() {
+  doSomething();
+}
+
+bar(async () => {
+  doSomething();
+});
+
+// OK
+async function foo() {
+  await doSomething();
+}
+
+bar(async () => {
+  await doSomething();
+});
+```
+
+### [vars-on-top](https://eslint.org/docs/rules/vars-on-top)
+
+変数宣言をスコープの先頭で行う事を強制します。
+これはJavaScriptインタプリタが自動的に行うホイスティングを実装者に意識させます。
+
+```js
+// NG
+function doSomething() {
+  var a = 1
+  console.log(a)
+  var b = 2
+}
+
+for (var i = 0; i < 10; i++) {
+  console.log(i)
+}
+
+// OK
+function doSomething() {
+  var a = 1
+  var b = 2
+  console.log(a)
+}
+
+for (let i = 0; i < 10; i++) {
+  console.log(i)
+}
+```
+
+### [wrap-iife](https://eslint.org/docs/rules/wrap-iife)
+
+即時関数（IIFE）を括弧で囲む事を強制します。
+これは関数式が括弧がなくても実行される事に対し、関数宣言は括弧がない場合は実行されないためです。
+
+```js
+// NG
+var x = function () { return { y: 1 } }()
+
+// OK
+var x = (function () { return { y: 1 } }())
+```
+
+### [yoda](https://eslint.org/docs/rules/yoda)
+
+ヨーダ記法を強制もしくは禁止します。
+これは変数とリテラル値を比較する時のオペランドの位置に一貫性を持たせるためです。
+
+```js
+/* "yoda": "error" */
+// NG
+if ('red' === color) {
+
+}
+
+// OK
+if (color === 'red') {
+
+}
+
+/* "yoda": ["error", "always"] */
+// NG
+if (color === 'red') {
+
+}
+
+// OK
+if ('red' === color) {
+
+}
+```

@@ -9,6 +9,6 @@
   },
   "globals": {},
   "rules":  {
-    "no-useless-escape": "error"
+    "yoda": ["error", "always"]
   }
 }
